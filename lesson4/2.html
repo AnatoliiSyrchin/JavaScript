@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Необязательное задание, но желательно сделать.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
+
+---
+
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+
+---
+
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
+-->
+  <script>
+    "use strict";
+
+    //---------- ES5 ----------
+
+    function PostES5(name, text) {
+      this.name = name;
+      this.text = text;
+      this.createdAt = new Date().toLocaleString();
+    }
+
+    PostES5.prototype.edit = function (text) {
+      this.text = text;
+      this.lastModified = new Date().toLocaleString();
+    }
+
+    PostES5.prototype.show = function () {
+      if (this.lastModified) {
+        console.log(`author name = ${this.name}, created at: \
+${this.createdAt}, last modified: ${this.lastModified}\n${this.text}`);
+      } else {
+        console.log(`author name = ${this.name}, created at: \
+${this.createdAt}\n${this.text}`);
+      }
+    }
+
+    function AttachedPostES5(name, text, highlighted = false) {
+      PostES5.call(this, name, text);
+      this.highlighted = highlighted;
+      this.createdAt = new Date().toLocaleString();
+    }
+
+    AttachedPostES5.prototype = Object.create(PostES5.prototype);
+    AttachedPostES5.prototype.constructor = AttachedPostES5;
+
+    PostES5.prototype.makeTextHighlighted = function () {
+      this.highlighted = true;
+      this.lastModified = new Date().toLocaleString();
+    }
+
+    AttachedPostES5.prototype.show = function () {
+      if (this.highlighted) {
+        console.log(`author name = ${this.name}, created at: ${this.createdAt},\
+ last modified: ${this.lastModified}\n${this.text} highlighted`);
+      } else {
+        PostES5.prototype.show.call(this);
+      }
+    }
+
+    //---------- ES6 ----------
+
+    class PostES6 {
+      constructor(name, text) {
+        this.name = name;
+        this.text = text;
+        this.createdAt = new Date().toLocaleString();
+      }
+
+      edit(text) {
+        this.text = text;
+        this.lastModified = new Date().toLocaleString();
+      }
+
+      show() {
+        if (this.lastModified) {
+          console.log(`author name = ${this.name}, created at: \
+${this.createdAt}, last modified: ${this.lastModified}\n${this.text}`);
+        } else {
+          console.log(`author name = ${this.name}, created at: \
+${this.createdAt}\n${this.text}`);
+        }
+      }
+    }
+
+    class AttachedPostES6 extends PostES6 {
+      constructor(name, text, highlighted = false) {
+        super(name, text)
+        this.createdAt = new Date().toLocaleString();
+        this.highlighted = highlighted;
+      }
+
+      makeTextHighlighted() {
+        this.highlighted = true;
+        this.lastModified = new Date().toLocaleString();
+      }
+
+      show() {
+        if (this.highlighted) {
+          console.log(`author name = ${this.name}, created at: ${this.createdAt},\
+ last modified: ${this.lastModified}\n${this.text} highlighted`);
+        } else {
+          super.show();
+        }
+      }
+    }
+
+    //---------- output ----------
+
+    const myPostES5 = new PostES5('Tolik', 'ES5 post');
+    const myAttachedPostES5 = new AttachedPostES5('Tolik', 'ES5 attached post');
+    const myPostES6 = new PostES6('Tolik', 'ES6 post');
+    const myAttachedPostES6 = new AttachedPostES6('Tolik', 'ES6 attached post');
+
+    // таймаут, чтобы время отличалось в last modified
+    setTimeout(() => {
+      console.log('---------- ES5 output ----------');
+      myPostES5.show();
+      myAttachedPostES5.show();
+      myPostES5.edit('ES5 edited post');
+      myAttachedPostES5.edit('ES5 edited attached post');
+      myAttachedPostES5.makeTextHighlighted();
+      myPostES5.show();
+      myAttachedPostES5.show();
+
+      console.log('---------- ES6 output ----------');
+      myPostES6.show();
+      myAttachedPostES6.show();
+      myPostES6.edit('ES6 edited post');
+      myAttachedPostES6.edit('ES6 edited attached post');
+      myAttachedPostES6.makeTextHighlighted();
+      myPostES6.show();
+      myAttachedPostES6.show();
+    }, 1000);
+
+  </script>
+</body>
+
+</html>
