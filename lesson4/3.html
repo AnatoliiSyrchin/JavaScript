@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Необязательное задание.
+
+Необходимо создать функцию getDigitsOfNumber, которая принимает целое
+положительное число в диапазоне от 0 до 1000.
+Функция должна вернуть обычный объект с тремя свойствами:
+1. units - содержит число, количество единиц в параметре функции.
+2. dozens - содержит число, количество десятков в параметре функции.
+3. hundreds - содержит число, количество сотен в параметре функции.
+Если функции было передано не целое положительное число, либо число в ином
+диапазоне, нежели задано в условии, функция должна вывести в консоль информацию
+об ошибке и вернуть пустой объект.
+Необходимо также прописать jsdoc для данной функции.
+
+Подсказка:
+У объекта console есть разные методы, мы часто используем console.log для того
+чтобы вывести в консоль какое-то значение, однако есть и другие методы, найдите
+в интернете какие методы существуют и используйте "правильный метод" в нужном
+месте. Обратите внимание что функция не должна выбрасывать ошибку, она должна
+только вывести в консоль информацию о том, что что-то пошло не так.
+Обратите внимание на слова "от 0 до 1000", это означает диапазон [0, 999], что
+можно прочитать как "от нуля до 999 включительно".
+-->
+  <script>
+    "use strict";
+
+    /**
+     * The function counts hundreds, dozens and units in a given number.
+     * @param {number} nmbr - number in range [0, 999].
+     * @returns {object} returns an object with three properties:
+     * * units - the number of units,
+     * * dozens - the number of dozens,
+     * * hundreds - the number of hundreds.
+     */
+    function getDigitsOfNumber(nmbr) {
+      const digitsOfNumber = {};
+      if (Math.trunc(nmbr) !== nmbr || nmbr < 0 || nmbr > 999) {
+        console.error('number must be integer in range [0, 999]');
+      } else {
+        digitsOfNumber.hundreds = Math.trunc(nmbr / 100) % 10;
+        digitsOfNumber.dozens = Math.trunc(nmbr / 10) % 10;
+        digitsOfNumber.units = nmbr % 10;
+      }
+      return digitsOfNumber;
+    }
+
+    console.log(getDigitsOfNumber(-1));
+    console.log(getDigitsOfNumber(85.25));
+    console.log(getDigitsOfNumber(2594));
+    console.log(getDigitsOfNumber(684));
+    console.log(getDigitsOfNumber(1));
+  </script>
+</body>
+
+</html>
