@@ -37,6 +37,9 @@ body {
     font-size: 12px;
 }
 
+.rightHeader {
+    position: relative;
+}
 
 .userIcon,
 .cartIcon {
@@ -49,6 +52,7 @@ body {
     .cartIcon {
         display: inline;
     }
+
 }
 
 .userIcon {
@@ -84,8 +88,9 @@ body {
     width: 40%;
     min-width: 400px;
     position: absolute;
-    top: 74px;
-    right: 10px;
+    top: 55px;
+    right: 0px;
+    z-index: 1;
     border: 1px solid #f397a3;
     background-color: #f397a3;
 }
@@ -121,8 +126,8 @@ body {
     justify-content: center;
 }
 
-.basketTotal>.basketCell,
-.basketHeader>.basketCell {
+.basketTotal .basketCell,
+.basketHeader .basketCell {
     font-weight: bold;
     background-color: #f8f8f8;
     ;
