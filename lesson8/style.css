@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
 
+:root {
+    --almost-white: #f8f3f4;
+    --pink: var(--pink);
+}
+
 body {
     margin: 0;
     font-family: Lato, sans-serif;
@@ -103,7 +108,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    background-color: #f8f3f4;
+    background-color: var(--almost-white);
     flex: 0 0 15%;
     margin: 1px;
     padding: 3px;
@@ -131,10 +136,11 @@ body {
     font-weight: bold;
     background-color: #f8f8f8;
     ;
+    ;
 }
 
 .newArrivals {
-    background: #f8f3f4;
+    background: var(--almost-white);
     min-height: 148px;
 }
 
@@ -268,7 +274,7 @@ body {
 }
 
 .filterLabelPink {
-    color: #ef5b70 !important;
+    color: var(--pink) !important;
     left: 16px;
     top: 13px;
 }
@@ -326,7 +332,7 @@ body {
 .filterCategoryHeader {
     font-size: 14px;
     line-height: 37px;
-    color: #ef5b70;
+    color: var(--pink);
     padding-left: 11px;
     min-height: 37px;
     border-bottom: 1px solid #ebebeb;
@@ -339,7 +345,7 @@ body {
     content: "";
     width: 5px;
     min-height: inherit;
-    background: #ef5b70;
+    background: var(--pink);
     position: absolute;
     left: 0;
     top: 1px;
@@ -534,7 +540,7 @@ body {
 }
 
 .pagination a:hover {
-    color: #ef5b70;
+    color: var(--pink);
 }
 
 .services {
